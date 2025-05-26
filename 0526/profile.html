@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>プロフィール</title>
+</head>
+
+<body>
+  <form action="result.php" method="post" id="profile_id">
+    <div>
+      <label for="name">氏名 (必須)</label>
+      <input type="text" name="name" id="name" required>
+    </div>
+    <div>
+      <label for="age">年齢</label>
+      <input type="text" name="age" id="age">
+    </div>
+    <div>
+      <label for="gender">性別:</label>
+      <input type="radio" name="gender" id="gender1" value="man">
+      <label for="gender1">男</label>
+      <input type="radio" name="gender" id="gender2" value="woman">
+      <label for="gender2">女</label>
+      <input type="radio" name="gender" id="gender3" value="other">
+      <label for="gender3">その他</label>
+    </div>
+    <button type="submit">送信する</button>
+  </form>
+</body>
+
+</html>
