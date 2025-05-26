@@ -15,6 +15,6 @@ if ((($weight < 0) || (200 < $weight))) {
   exit;
 };
 
-echo "体重" . $weight . "kg<br>";
-echo "理想" . $goal_weight . "kg<br>";
-echo "後" . $difference . "kgで適正体重です";
+echo "体重" . str2html($weight) . "kg<br>";
+echo "理想" . str2html($goal_weight) . "kg<br>";
+echo "後" . str2html($difference) . "kgで適正体重です";
