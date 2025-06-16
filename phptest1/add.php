@@ -7,7 +7,7 @@ $age = $_POST['age'];
 // データベースに接続する
 try {
   $user = "phpuser";
-  $password = "xxxxxxxxxx";  // 実際のパスワードに変更してね
+  $password = "php0602_bb07";  // 実際のパスワードに変更してね
   $opt = [
     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, // エラー表示
     PDO::ATTR_EMULATE_PREPARES => false,         // 実行速度対策
