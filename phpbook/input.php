@@ -1,10 +1,10 @@
-<?php include __DIR__ . '/inc/header.php'; ?>
-<?php require_once __DIR__ . '/login_check.php'; ?>
 <?php
 session_start();
 $token = bin2hex(random_bytes(20));
 $_SESSION['token'] = $token;
 ?>
+<?php require_once __DIR__ . '/login_check.php'; ?>
+<?php include __DIR__ . '/inc/header.php'; ?>
 <form action="add.php" method="post">
   <p>
     <label for="title">タイトル（必須：200文字まで）：</label>

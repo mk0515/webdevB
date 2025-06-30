@@ -2,3 +2,9 @@
 user名：mdnuser
 password：20060312
 ハッシュ：$2y$10$F9xOOmarM31hUPkBlsGdgubujKsYGW351dIP02Ny8NzCPvX4.LBVm
+
+lollipop
+データベース名：LAA1608540-sampledb
+ホスト：mysql325.phy.lolipop.lan
+ユーザー名：LAA1608540
+パスワード：mi2015031307

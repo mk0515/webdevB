@@ -7,6 +7,6 @@ if (empty($_POST['token'])) {
   exit;
 }
 if (!(hash_equals($_SESSION['token'], $_POST['token']))) {
-  echo "エラーが発生しました。";
+  echo "エラーが発生しました。(2)";
   exit;
 }

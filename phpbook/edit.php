@@ -1,6 +1,11 @@
 <?php
-require_once __DIR__ . '/inc/functions.php';
+session_start();
+$token = bin2hex(random_bytes(20));
+$_SESSION['token'] = $token;
+?>
+<?php
 require_once __DIR__ . '/login_check.php';
+require_once __DIR__ . '/inc/functions.php';
 
 if (empty($_GET['id'])) {
   // igが空の時はエラー
@@ -58,8 +63,9 @@ $html_form = <<<EOD
   </p>
   <p>
     <input type="hidden" name="id" value="$id">
-  </p>
-  <button type="submit">送信する</button>
+    <input type='hidden' name='token' value='$token'>
+    <button type="submit">送信する</button>
+    </p>
 </form>
 EOD;
 include __DIR__ . '/inc/header.php';
