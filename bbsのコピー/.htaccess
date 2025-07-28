@@ -1,0 +1,12 @@
+#php_flag display_errors On
+#php_value error_reporting 32767
+DirectoryIndex public/index.php
+RewriteEngine On
+
+# ファイル・ディレクトリが存在しない場合のみ public/ にリダイレクト
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ public/$1 [L]
+
+# セキュリティ：config, app, logs, storage などへの直接アクセスを拒否
+RedirectMatch 403 ^/(config|app|logs|storage)/.*$

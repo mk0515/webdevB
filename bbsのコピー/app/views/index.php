@@ -25,45 +25,21 @@
         <p>
           <!-- いいね -->
           <a href="#" class="reaction-button like-button" data-id="<?= (int)$post['id'] ?>" data-type="like">
-            <img src="<?= dirname(get_base_url()) ?>/svg/heart_line.svg"
-              data-filled="<?= dirname(get_base_url()) ?>/svg/heart.svg"
-              data-empty="<?= dirname(get_base_url()) ?>/svg/heart_line.svg"
-              class="reaction-icon"
-              alt="いいね"
-              data-id="<?= (int)$post['id'] ?>"
-              style="width:40px;" />
-            <span class="like-count" data-id="<?= (int)$post['id'] ?>">
-              <?= isset($post['like_count']) ? (int)$post['like_count'] : 0 ?>
-            </span>
+            <i class="fa-regular fa-heart" data-id="<?= (int)$post['id'] ?>"></i>
           </a>
+          <span class="reaction-count like-count" data-id="<?= (int)$post['id'] ?>"><?= (int)($post['likes'] ?? 0) ?></span> 件
 
           <!-- スター -->
           <a href="#" class="reaction-button star-button" data-id="<?= (int)$post['id'] ?>" data-type="star" style="margin-left: 15px;">
-            <img src="<?= dirname(get_base_url()) ?>/svg/star_line.svg"
-              data-filled="<?= dirname(get_base_url()) ?>/svg/star.svg"
-              data-empty="<?= dirname(get_base_url()) ?>/svg/star_line.svg"
-              class="reaction-icon"
-              alt="最高"
-              data-id="<?= (int)$post['id'] ?>"
-              style="width:40px;" />
-            <span class="star-count" data-id="<?= (int)$post['id'] ?>">
-              <?= isset($post['star_count']) ? (int)$post['star_count'] : 0 ?>
-            </span>
+            <i class="fa-regular fa-star" data-id="<?= (int)$post['id'] ?>"></i>
           </a>
+          <span class="reaction-count star-count" data-id="<?= (int)$post['id'] ?>"><?= (int)($post['stars'] ?? 0) ?></span> 件
 
           <!-- 尊い -->
           <a href="#" class="reaction-button precious-button" data-id="<?= (int)$post['id'] ?>" data-type="precious" style="margin-left: 15px;">
-            <img src="<?= dirname(get_base_url()) ?>/svg/precious_line.svg"
-              data-filled="<?= dirname(get_base_url()) ?>/svg/precious.svg"
-              data-empty="<?= dirname(get_base_url()) ?>/svg/precious_line.svg"
-              class="reaction-icon"
-              alt="尊い"
-              data-id="<?= (int)$post['id'] ?>"
-              style="width:40px;" />
-            <span class="precious-count" data-id="<?= (int)$post['id'] ?>">
-              <?= isset($post['precious_count']) ? (int)$post['precious_count'] : 0 ?>
-            </span>
+            <i class="fa-regular fa-gem" data-id="<?= (int)$post['id'] ?>"></i>
           </a>
+          <span class="reaction-count precious-count" data-id="<?= (int)$post['id'] ?>"><?= (int)($post['precious'] ?? 0) ?></span> 件
         </p>
         <form class="delete-form" data-id="<?= (int)$post['id'] ?>" method="post">
           <input type="hidden" name="delete_id" value="<?= (int)$post['id'] ?>">
@@ -88,12 +64,66 @@
   document.addEventListener('DOMContentLoaded', () => {
     const reactionTypes = ['like', 'star', 'precious'];
 
+    // Cookieからリアクション済み投稿IDを取得
+    const getReactions = (type) => {
+      const cookie = document.cookie.split('; ').find(row => row.startsWith(`${type}_posts=`));
+      if (!cookie) return [];
+      try {
+        return JSON.parse(decodeURIComponent(cookie.split('=')[1]));
+      } catch {
+        return [];
+      }
+    };
+
+    // Cookieにリアクション投稿IDを保存
+    const setReactions = (type, ids) => {
+      document.cookie = `${type}_posts=${encodeURIComponent(JSON.stringify(ids))}; path=/; max-age=31536000`;
+    };
+
+    // 他のリアクションボタンも全部無効化する関数
+    function disableOtherButtons(postId) {
+      reactionTypes.forEach(t => {
+        document.querySelectorAll(`.${t}-button[data-id='${postId}']`).forEach(btn => {
+          disableButton(btn);
+        });
+      });
+    }
+
+    // ボタンを押せなくする＆見た目変える関数
+    function disableButton(button) {
+      button.style.pointerEvents = 'none';
+    }
+
+    // ボタンを塗りつぶしにする関数
+    function setButtonActive(button) {
+      const icon = button.querySelector('i');
+      icon.classList.remove('fa-regular');
+      icon.classList.add('fa-solid');
+    }
+
     reactionTypes.forEach(type => {
+      let reactedPosts = getReactions(type);
+
       document.querySelectorAll(`.${type}-button`).forEach(button => {
+        const postId = button.dataset.id;
+
+        // すでにリアクション済みなら無効化＆色変更
+        if (reactedPosts.includes(postId)) {
+          setButtonActive(button);
+          disableButton(button);
+          disableOtherButtons(postId);
+        }
+
         button.addEventListener('click', e => {
           e.preventDefault();
 
-          const postId = button.dataset.id;
+          if (reactedPosts.includes(postId)) {
+            alert('もうリアクション済みだよ〜！');
+            return;
+          }
+
+          // 他のボタンも全部無効化
+          disableOtherButtons(postId);
 
           fetch(`?${type}_id=${postId}`, {
               method: 'GET'
@@ -102,28 +132,31 @@
             .then(() => {
               // カウントアップ
               const countSpan = document.querySelector(`.${type}-count[data-id='${postId}']`);
-              const current = parseInt(countSpan.textContent) || 0;
+              const current = parseInt(countSpan.textContent);
               countSpan.textContent = current + 1;
 
-              // アイコンを塗りつぶしに変更
-              const img = button.querySelector('img');
-              if (img && img.dataset.filled) {
-                img.src = img.dataset.filled;
-              }
+              // 押したボタンをアクティブ化＆無効化
+              setButtonActive(button);
+              disableButton(button);
+
+              // Cookieに保存
+              reactedPosts.push(postId);
+              setReactions(type, reactedPosts);
             })
             .catch(() => {
-              alert(`${type}のリアクションに失敗しちゃった💦`);
+              alert('リアクションに失敗しちゃった💦');
             });
         });
       });
     });
 
-    // ======= 投稿削除モーダルまわりの処理 =======
+    // 消去 & モーダル
     const deleteForms = document.querySelectorAll('.delete-form');
     const modal = document.getElementById('delete-modal');
     const overlay = document.getElementById('modal-overlay');
     const confirmBtn = document.getElementById('confirm-delete');
     const cancelBtn = document.getElementById('cancel-delete');
+
     let currentForm = null;
 
     deleteForms.forEach(form => {
@@ -151,7 +184,7 @@
       currentForm = null;
     });
 
-    // ======= 投稿画像プレビュー処理 =======
+    // プレビュー画像表示
     const imageInput = document.getElementById('imageInput');
     const preview = document.getElementById('preview');
 
