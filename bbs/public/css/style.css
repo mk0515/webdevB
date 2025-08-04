@@ -1,5 +1,10 @@
 @charset "utf-8";
 
+img {
+  height: auto;
+  max-width: 100%;
+  vertical-align: bottom;
+}
 .inner {
   max-width: 1200px;
   width: 60%;
@@ -9,6 +14,59 @@
 
 body {
   background: url(../image/check.svg) left/2%;
+  color: #532a13;
+  font-family: "Zen Maru Gothic", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.h1 {
+  width: 70%;
+  margin-top: 50px;
+  margin-left: auto;
+  margin-bottom: 50px;
+  margin-right: auto;
+}
+
+.h1-2 {
+  width: 30%;
+  margin-top: 50px;
+  margin-left: auto;
+  margin-bottom: 50px;
+  margin-right: auto;
+}
+
+.hello {
+  margin-bottom: 15px;
+  font-size: 25px;
+}
+
+.change_link {
+  font-size: 20px;
+  color: #6fb92c;
+  cursor: pointer;
+  margin-bottom: 40px;
+  font-size: 20px;
+  position: relative;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.change_link::after {
+  position: absolute;
+  bottom: -4px; /*テキストからの距離*/
+  left: 0;
+  content: "";
+  width: 100%; /*hover時に表示*/
+  height: 2px; /*下線の高さ*/
+  background: #6fb92c; /*下線の色*/
+  transform: scale(0, 1); /*トランス前の下線*/
+  transform-origin: left top; /*トランスフォーム開始位置*/
+  transition: transform 0.3s; /*アニメーション速度*/
+}
+
+.change_link:hover::after {
+  transform: scale(1, 1); /*トランス後の下線*/
 }
 
 .login {
@@ -22,4 +80,200 @@ body {
 a {
   width: fit-content;
   height: fit-content;
+}
+
+.top_index {
+  padding-bottom: 100px;
+  margin-bottom: 100px;
+  border-bottom: dashed #ffd7be 2px;
+}
+
+.top_bg {
+  padding-top: 70px;
+  padding-bottom: 150px;
+  border-top-left-radius: 20%;
+  border-top-right-radius: 20%;
+  background-color: #fff6eb;
+}
+
+.comment,
+.pic {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: left;
+}
+
+.post_button {
+  text-align: center;
+}
+
+.delete-btn {
+  width: 100px;
+}
+
+.comment img {
+  width: 100px;
+  margin-bottom: 15px;
+}
+
+.pic img {
+  width: 150px;
+  margin-bottom: 15px;
+}
+
+.submit_btn {
+  margin-top: 20px;
+  font-weight: 700;
+  width: 100px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius: 10px;
+  font-size: 20px;
+  color: #6fb92c;
+  background-color: #fff6eb;
+  border-color: #6fb92c;
+  border-width: 2.5px;
+  border-style: dashed;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.submit_btn:hover {
+  color: #fff6eb;
+  background-color: #6fb92c;
+  border-color: #6fb92c;
+  border-width: 2.5px;
+  border-style: dashed;
+}
+
+.comment_area {
+  background-color: #fff;
+  border: #6fb92c solid 2px;
+  border-radius: 10px;
+}
+
+strong {
+  font-weight: 700;
+}
+
+.comment {
+  margin-bottom: 45px;
+}
+
+small {
+  font-size: 13px;
+}
+
+.name {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.comment_toukou {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.btn {
+  margin-bottom: 20px;
+}
+
+.delete-btn {
+  cursor: pointer;
+}
+
+#confirm-delete {
+  color: #f1946a;
+  cursor: pointer;
+  font-size: 17px;
+  position: relative;
+  display: inline-block;
+  text-decoration: none;
+}
+
+#confirm-delete::after {
+  position: absolute;
+  bottom: -4px; /*テキストからの距離*/
+  left: 0;
+  content: "";
+  width: 100%; /*hover時に表示*/
+  height: 2px; /*下線の高さ*/
+  background: #f1946a; /*下線の色*/
+  transform: scale(0, 1); /*トランス前の下線*/
+  transform-origin: left top; /*トランスフォーム開始位置*/
+  transition: transform 0.3s; /*アニメーション速度*/
+}
+
+#confirm-delete:hover::after {
+  transform: scale(1, 1); /*トランス後の下線*/
+}
+
+#cancel-delete {
+  color: #6fb92c;
+  cursor: pointer;
+  font-size: 16px;
+  position: relative;
+  display: inline-block;
+  text-decoration: none;
+}
+
+#cancel-delete::after {
+  position: absolute;
+  bottom: -4px; /*テキストからの距離*/
+  left: 0;
+  content: "";
+  width: 100%; /*hover時に表示*/
+  height: 2px; /*下線の高さ*/
+  background: #6fb92c; /*下線の色*/
+  transform: scale(0, 1); /*トランス前の下線*/
+  transform-origin: left top; /*トランスフォーム開始位置*/
+  transition: transform 0.3s; /*アニメーション速度*/
+}
+
+#cancel-delete:hover::after {
+  transform: scale(1, 1); /*トランス後の下線*/
+}
+
+.delete {
+  font-size: 20px;
+}
+
+.login_name {
+  font-size: 20px;
+  text-align: center;
+  color: #532a13;
+}
+
+.login_name input {
+  background-color: #fff;
+  border: #6fb92c dashed 2px;
+  border-radius: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.login_name button {
+  background-color: #fff;
+  border: #6fb92c solid 2px;
+  color: #6fb92c;
+  border-radius: 10px;
+  padding: 5px;
+  width: 70px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.login_name button:hover {
+  background-color: #6fb92c;
+  color: #fff;
+}
+
+.login_bg {
+  padding-top: 70px;
+  padding-bottom: 150px;
+  border-top-left-radius: 200px;
+  border-top-right-radius: 200px;
+  background-color: #fff6eb;
+  padding-bottom: 48%;
 }

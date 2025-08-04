@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg id="_レイヤー_2" data-name="レイヤー_2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 55.77 55.77">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 55.8 55.8">
   <defs>
     <style>
       .cls-1 {
         fill: none;
-        stroke: #bde4f9;
+        stroke: #80c58f;
         stroke-miterlimit: 10;
       }
     </style>
   </defs>
-  <g id="_かくれんぼ" data-name="かくれんぼ">
-    <rect class="cls-1" x=".5" y=".5" width="54.77" height="54.77"/>
+  <!-- Generator: Adobe Illustrator 28.7.1, SVG Export Plug-In . SVG Version: 1.2.0 Build 142)  -->
+  <g>
+    <g id="_レイヤー_2">
+      <g id="_かくれんぼ">
+        <rect class="cls-1" x=".5" y=".5" width="54.8" height="54.8"/>
+      </g>
+    </g>
   </g>
 </svg>
